@@ -9,28 +9,7 @@
 #include "red-black tree.h"
 #include <stdio.h>
 #include <stdlib.h>
-#define red 1
-#define black 0
 
-typedef struct node
-{
-    int value;
-    int color;
-    struct node *leftchild;
-    struct node *rightchild;
-    struct node *parent;
-}node;
-
-typedef struct leaf
-{
-    int color ;
-    struct leaf *parent;
-}leaf;
-
-typedef struct rbtree
-{
-    struct node *head;
-}rbtree;
 
 node * create_node(int value)
 {
@@ -42,14 +21,31 @@ node * create_node(int value)
     return new_node;
 };
 
-
-void calibrate(rbtree *tree)
+void swap (node* parent, node* child)
+{
+    node * temp = NULL;
+    temp->value=parent->value;
+    temp->color=parent->color;
+    parent->value=child->value;
+    parent->color=child->color;
+    child->value=temp->value;
+    child->color=temp->color;
+}
+void calibrateorder(rbtree *tree)
 {
     node * temp=tree->head;
+    rbtree * tempright = NULL;
+    rbtree * templeft = NULL;
+    tempright->head=tree->head->rightchild;
+    templeft->head=tree->head->leftchild;
     if (temp->value<temp->leftchild->value)
-    {
-        
-    }
+        swap(temp, temp->leftchild);
+    if (temp->value>temp->rightchild->value)
+        swap(temp, temp->rightchild);
+    if (tempright->head->rightchild!=NULL)
+        calibrateorder(tempright);
+    if (tempright->head->leftchild!=NULL)
+        calibrateorder(templeft);
 };
 
 void insert_node(rbtree* tree,node* Node)
