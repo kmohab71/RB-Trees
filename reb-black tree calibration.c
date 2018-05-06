@@ -47,4 +47,38 @@ void calibrate_col(rbtree * tree,node * leaf)
         if (leaf->parent->parent!=tree->head)
             calibrate_col(tree,leaf->parent->parent);
     }
+    else if (parent_pos==0 && child_pos==0 && leaf->parent->parent->rightchild->color==black)
+    {
+        rotateLeft(tree->head, leaf);
+        swap_col(leaf->parent, leaf->parent->leftchild);
+        if (leaf->parent->parent!=tree->head)
+            calibrate_col(tree,leaf->parent->parent);
+
+    }
+    else if (parent_pos==0 && child_pos==1 && leaf->parent->parent->rightchild->color==black)
+    {
+        rotateLeft(tree->head, leaf);
+        rotateRight(tree->head, leaf);
+        swap_col(leaf->parent, leaf->parent->rightchild);
+        if (leaf->parent->parent!=tree->head)
+            calibrate_col(tree,leaf->parent->parent);
+
+    }
+    else if (parent_pos==1 && child_pos==0 && leaf->parent->parent->rightchild->color==black)
+    {
+        rotateRight(tree->head, leaf);
+        rotateLeft(tree->head, leaf);
+        swap_col(leaf->parent, leaf->parent->rightchild);
+        if (leaf->parent->parent!=tree->head)
+            calibrate_col(tree,leaf->parent->parent);
+
+    }
+    else if (parent_pos==1 && child_pos==1 && leaf->parent->parent->rightchild->color==black)
+    {
+        rotateRight(tree->head, leaf);
+        swap_col(leaf->parent, leaf->parent->rightchild);
+        if (leaf->parent->parent!=tree->head)
+            calibrate_col(tree,leaf->parent->parent);
+
+    }
 };

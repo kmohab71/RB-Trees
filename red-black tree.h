@@ -22,11 +22,6 @@ typedef struct node
     struct node *parent;
 }node;
 
-typedef struct leaf
-{
-    int color ;
-    struct leaf *parent;
-}leaf;
 
 typedef struct rbtree
 {
