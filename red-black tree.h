@@ -29,5 +29,5 @@ typedef struct rbtree
 }rbtree;
 node * create_node(int value);
 void insert_node(rbtree* tree,node* Node);
-
+void delete_node(rbtree* tree,int val);
 #endif /* red_black_tree_h */

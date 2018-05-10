@@ -53,7 +53,52 @@ void insert_node(rbtree* tree,node* Node)
         }
     }
 };
-
+void delete_node(rbtree* tree,int val)
+{   node* leaf=tree->head;
+    while(leaf->leftchild!=NULL && leaf->rightchild!=NULL)
+    {
+        if (leaf==NULL)
+        {
+            printf("value not found!!\n");
+            return;
+        }
+        else if (val==leaf->value)
+            break;
+        else if(val>leaf->value)
+            leaf=leaf->rightchild;
+        else if (val<leaf->value)
+            leaf=leaf->leftchild;
+    }
+    if (leaf->color==red)
+    {
+        node *temp=NULL;
+        temp=leaf->rightchild;
+        while (temp->leftchild!=NULL) {
+            temp=temp->leftchild;
+        }
+        temp->parent->leftchild=temp->rightchild;
+        swap(temp, leaf)
+        free(temp);
+    }
+    else
+    {
+        if (leaf->leftchild==NULL&&leaf->rightchild==NULL)
+        {
+            free(leaf);
+        }
+        else if (leaf->leftchild!=NULL)
+        {
+            node *temp=NULL;
+            temp=leaf->leftchild;
+            while (temp->rightchild!=NULL) {
+                temp=temp->rightchild;
+            }
+            swap(temp, leaf);
+            free(temp);
+        }
+    }
+        
+}
 
 
 /*
